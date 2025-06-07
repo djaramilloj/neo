@@ -17,7 +17,9 @@ const port = process.env.PORT || 3000;
 app.use(helmet());
 // CORS enables cross-origin resource sharing, allowing APIs to be accessed from different domains
 app.use(cors());
+// Parses incoming requests with JSON payloads (application/json)
 app.use(express.json());
+// Parses incoming requests with URL-encoded payloads (form submissions)
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
