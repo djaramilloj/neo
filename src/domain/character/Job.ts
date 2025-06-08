@@ -2,7 +2,8 @@ export type JobName = 'Warrior' | 'Thief' | 'Mage';
 
 
 export interface JobStats {
-    health: number;
+    currentHealth: number;
+    maximumHealth: number;
     strength: number;
     dexterity: number;
     intelligence: number;
@@ -13,7 +14,8 @@ export interface JobStats {
 
 export const JOBS: Record<JobName, JobStats> = {
     Warrior: {
-        health: 20,
+        currentHealth: 20,
+        maximumHealth: 20,
         strength: 10,
         dexterity: 5,
         intelligence: 5,
@@ -21,7 +23,8 @@ export const JOBS: Record<JobName, JobStats> = {
         speedModifier: (stats: JobStats) => stats.dexterity * 0.6 + stats.intelligence * 0.2,
     },
     Thief: {
-        health: 15,
+        currentHealth: 15,
+        maximumHealth: 15,
         strength: 4,
         dexterity: 10,
         intelligence: 4,
@@ -29,7 +32,8 @@ export const JOBS: Record<JobName, JobStats> = {
         speedModifier: (stats: JobStats) => stats.dexterity * 0.8,
     },
     Mage: {
-        health: 12,
+        currentHealth: 12,
+        maximumHealth: 12,
         strength: 5,
         dexterity: 6,
         intelligence: 10,

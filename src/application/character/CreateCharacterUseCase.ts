@@ -16,13 +16,13 @@ export class CreateCharacterUseCase {
             throw new AppError('Name, job and user_id are required', 400);
         }
 
-        const existingCharacter = this.characterRepository.getCharacterByName(userId, name);
+        const existingCharacter = this.characterRepository.getCharacterByName(name, userId);
         if (existingCharacter) {
             throw new AppError('Character with this name already exists', 409); // 409 Conflict
         }
 
         // Create character with Factory
-        const newCharacter: Character = CharacterFactory.create(name, job as JobName);
+        const newCharacter: Character = CharacterFactory.create(name, job as JobName, userId);
 
         // Save without modifiers as they are calculated on the fly
         this.characterRepository.save(userId, newCharacter);
@@ -32,8 +32,8 @@ export class CreateCharacterUseCase {
             ...newCharacter,
             stats: {
                 ...newCharacter.stats,
-                attackModifier: newCharacter.stats.attackModifier(newCharacter.stats),
-                speedModifier: newCharacter.stats.speedModifier(newCharacter.stats),
+                attackModifier: parseFloat(newCharacter.stats.attackModifier(newCharacter.stats).toFixed(2)),
+                speedModifier: parseFloat(newCharacter.stats.speedModifier(newCharacter.stats).toFixed(2)),
             }
         }
 

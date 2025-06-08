@@ -11,11 +11,25 @@ export class InMemoryCharacterRepository {
         this.characters[userId].push(character);
     }
 
-    findAll(userId: string): Character[] {
-        return this.characters[userId] || [];
+    update(userId: string, updatedCharacter: Character): void {
+        if (!this.characters[userId]) return;
+        const idx = this.characters[userId].findIndex(c => c.name === updatedCharacter.name);
+        if (idx !== -1) {
+            this.characters[userId][idx] = updatedCharacter;
+        }
     }
 
-    getCharacterByName(userId: string, name: string): Character | undefined {
-        return this.characters[userId]?.find(character => character.name === name);
+    findAll(userId?: string): Character[] {
+        if (userId) {
+            return this.characters[userId] || [];
+        }
+        return Object.values(this.characters).flat();
+    }
+
+    getCharacterByName(name: string, userId?: string): Character | undefined {
+        if (userId) {
+            return this.characters[userId]?.find(character => character.name === name);
+        }
+        return Object.values(this.characters).flat().find(character => character.name === name);
     }
 }

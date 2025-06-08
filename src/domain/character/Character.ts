@@ -3,10 +3,12 @@ import { JobName, JOBS, JobStats } from './Job';
 
 export class Character {
     constructor(
+        public readonly userId: string,
         public readonly name: string,
         public job: JobName, // Without readonly, the job can be modified
         public stats: JobStats // Without readonly, the stats can be modified
     ) {
+        this.userId = userId;
         this.stats = stats;
         this.job = job;
         this.name = name;

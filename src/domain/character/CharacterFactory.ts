@@ -12,13 +12,14 @@ export class CharacterFactory {
      * @param job - The job of the character
      * @returns The created character
      */
-    static create(name: string, job: JobName): Character {
+    static create(name: string, job: JobName, userId: string): Character {
         if (!/^[a-zA-Z_]{4,15}$/.test(name)) {
             throw new AppError('Name must be 4-15 letters or underscores.', 400);
         }
         if (!Object.keys(JOBS).includes(job)) {
             throw new AppError('Invalid job type.', 400);
         }
-        return new Character(name, job, JOBS[job]);
+        const stats = JOBS[job];
+        return new Character(userId, name, job, stats);
     }
 } 
